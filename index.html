@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DHL Shipment Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>DHL Shipment Tracker</h1>
+        <img src="dhl-logo.png" alt="DHL Logo" id="logo">
+    </header>
+    
+    <main>
+        <section>
+            <h2>Track Your Shipment</h2>
+            <input type="text" id="trackingCode" placeholder="Enter Tracking Code">
+            <button onclick="trackShipment()">Track</button>
+        </section>
+        <div id="result"></div>
+
+        <section>
+            <h2>Update Shipment Status</h2>
+            <input type="text" id="newStatus" placeholder="New Status">
+            <button onclick="updateStatus()">Update</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DHL. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const shipmentData = {
+            "xjwgynk17jeo7": {
+                status: "In Transit",
+                location: "New York, NY",
+                expectedDelivery: "2024-10-30"
+            }
+        };
+
+        function trackShipment() {
+            const trackingCode = document.getElementById('trackingCode').value;
+            const resultDiv = document.getElementById('result');
+
+            if (shipmentData[trackingCode]) {
+                const data = shipmentData[trackingCode];
+                resultDiv.innerHTML = `
+                    <h3>Tracking Status for ${trackingCode}</h3>
+                    <p>Status: ${data.status}</p>
+                    <p>Current Location: ${data.location}</p>
+                    <p>Expected Delivery: ${data.expectedDelivery}</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `<p>Status: Not Found</p>`;
+            }
+        }
+
+        function updateStatus() {
+            const newStatus = document.getElementById('newStatus').value;
+            shipmentData["xjwgynk17jeo7"].status = newStatus;
+            alert("Status updated successfully!");
+        }
+    </script>
+</body>
+</html>
